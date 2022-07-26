@@ -1,0 +1,20 @@
+.todo__filters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.filter__active {
+  color: blue;
+  text-decoration: underline;
+}
+/*# sourceMappingURL=TodoList.css.map */

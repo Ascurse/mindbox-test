@@ -3,6 +3,7 @@ import { ITodo } from "../../types/types";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { IconButton } from "@mui/material";
 import "./TodoItem.css";
+import { motion } from "framer-motion";
 
 interface TodoItemProps {
   todo: ITodo;
@@ -12,7 +13,12 @@ interface TodoItemProps {
 
 const TodoItem: FC<TodoItemProps> = ({ todo, handleToggle, removeTodo }) => {
   return (
-    <div className={todo.completed ? "todo_item__completed" : "todo_item"}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className={todo.completed ? "todo_item__completed" : "todo_item"}
+    >
       <input
         type="checkbox"
         checked={todo.completed}
@@ -22,7 +28,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, handleToggle, removeTodo }) => {
       <IconButton onClick={() => removeTodo(todo.id)}>
         <DeleteOutlineOutlinedIcon />
       </IconButton>
-    </div>
+    </motion.div>
   );
 };
 

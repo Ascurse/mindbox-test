@@ -5,21 +5,29 @@ import {
   Snackbar,
   SnackbarCloseReason,
 } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { ITodo } from "../../types/types";
 import List from "../List";
 import TodoItem from "../TodoItem/TodoItem";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import "./TodoList.css";
+import { motion } from "framer-motion";
 
 const TodoList: FC = () => {
   const [value, setValue] = useState<string>("");
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [notification, setNotification] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [filter, setFilter] = useState<string>("All");
+  const [filtered, setFiltered] = useState<ITodo[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    filterTodos();
+  }, [todos, filter]);
 
   const addTodo = (value: string) => {
     if (value) {
@@ -64,6 +72,16 @@ const TodoList: FC = () => {
     setTodos([...todos.filter((todo) => todo.id !== id)]);
   };
 
+  const filterTodos = () => {
+    if (!filter || filter === "All") {
+      setFiltered([...todos]);
+    } else if (filter === "Completed") {
+      setFiltered([...todos].filter((item) => item.completed === true));
+    } else {
+      setFiltered([...todos].filter((item) => item.completed === false));
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -85,7 +103,7 @@ const TodoList: FC = () => {
         />
       </form>
       <List
-        items={todos}
+        items={filtered}
         renderItem={(todo: ITodo) => (
           <TodoItem
             todo={todo}
@@ -95,6 +113,26 @@ const TodoList: FC = () => {
           />
         )}
       />
+      <div className="todo__filters">
+        <div
+          className={filter === "All" ? "filter__active" : "filter"}
+          onClick={() => setFilter("All")}
+        >
+          All
+        </div>
+        <div
+          className={filter === "Completed" ? "filter__active" : "filter"}
+          onClick={() => setFilter("Completed")}
+        >
+          Completed
+        </div>
+        <div
+          className={filter === "Active" ? "filter__active" : "filter"}
+          onClick={() => setFilter("Active")}
+        >
+          Active
+        </div>
+      </div>
       <Snackbar
         open={notification}
         autoHideDuration={3000}

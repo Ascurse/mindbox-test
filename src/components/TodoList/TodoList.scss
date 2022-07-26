@@ -1,0 +1,12 @@
+.todo__filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.filter__active {
+    color: blue;
+    text-decoration: underline;
+}
