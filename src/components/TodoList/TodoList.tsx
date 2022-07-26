@@ -116,7 +116,7 @@ const TodoList: FC = () => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => addTodo(value)}>
+                <IconButton onClick={() => addTodo(value)} data-testid="add">
                   <AddBoxOutlinedIcon />
                 </IconButton>
               </InputAdornment>
@@ -139,18 +139,21 @@ const TodoList: FC = () => {
         <Button
           disabled={filter === "All" ? true : false}
           onClick={() => setFilter("All")}
+          data-testid="all"
         >
           All
         </Button>
         <Button
           disabled={filter === "Completed" ? true : false}
           onClick={() => setFilter("Completed")}
+          data-testid="completed"
         >
           Completed
         </Button>
         <Button
           disabled={filter === "Active" ? true : false}
           onClick={() => setFilter("Active")}
+          data-testid="active"
         >
           Active
         </Button>

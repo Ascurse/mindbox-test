@@ -24,7 +24,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, handleToggle, removeTodo }) => {
         onChange={() => handleToggle(todo.id)}
       />
       {todo.title}
-      <IconButton onClick={() => removeTodo(todo.id)}>
+      <IconButton onClick={() => removeTodo(todo.id)} data-testid="del">
         <DeleteOutlineOutlinedIcon />
       </IconButton>
     </motion.div>
