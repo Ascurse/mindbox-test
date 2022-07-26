@@ -11,7 +11,6 @@ import List from "../List";
 import TodoItem from "../TodoItem/TodoItem";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import "./TodoList.css";
-import { motion } from "framer-motion";
 
 const TodoList: FC = () => {
   const [value, setValue] = useState<string>("");
@@ -26,6 +25,10 @@ const TodoList: FC = () => {
   };
 
   useEffect(() => {
+    setTodos(JSON.parse(localStorage.getItem("todos") || "[]"));
+  }, []);
+
+  useEffect(() => {
     filterTodos();
   }, [todos, filter]);
 
@@ -37,6 +40,7 @@ const TodoList: FC = () => {
         completed: false,
       };
       setTodos([...todos, newItem]);
+      localStorage.setItem("todos", JSON.stringify(todos));
       setValue("");
     } else {
       setError("Todo text can not be empty!");
@@ -66,10 +70,12 @@ const TodoList: FC = () => {
         todo.id === id ? { ...todo, completed: !todo.completed } : { ...todo }
       ),
     ]);
+    localStorage.setItem("todos", JSON.stringify(todos));
   };
 
   const removeTodo = (id: string) => {
     setTodos([...todos.filter((todo) => todo.id !== id)]);
+    localStorage.setItem("todos", JSON.stringify(todos));
   };
 
   const filterTodos = () => {
@@ -86,7 +92,10 @@ const TodoList: FC = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <TextField
-          id="outlined-basic"
+          id="outlined-multiline-flexible"
+          multiline
+          fullWidth
+          maxRows={4}
           label="Let's add a new task..."
           variant="outlined"
           onChange={handleChange}
