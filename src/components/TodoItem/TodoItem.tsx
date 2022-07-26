@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { ITodo } from "../../types/types";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { IconButton } from "@mui/material";
+import { Checkbox, IconButton } from "@mui/material";
 import "./TodoItem.css";
 import { motion } from "framer-motion";
 
@@ -19,8 +19,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, handleToggle, removeTodo }) => {
       transition={{ duration: 0.5 }}
       className={todo.completed ? "todo_item__completed" : "todo_item"}
     >
-      <input
-        type="checkbox"
+      <Checkbox
         checked={todo.completed}
         onChange={() => handleToggle(todo.id)}
       />

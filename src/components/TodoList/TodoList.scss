@@ -1,12 +1,17 @@
+.todo_list {
+    width: 350px;
+}
+
 .todo__filters {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    cursor: pointer;
     margin-top: 5px;
+    border: 1px solid gray;
 }
 
-.filter__active {
-    color: blue;
-    text-decoration: underline;
+.todo__filters__additional {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

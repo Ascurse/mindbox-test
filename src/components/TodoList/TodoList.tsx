@@ -4,6 +4,7 @@ import {
   IconButton,
   Snackbar,
   SnackbarCloseReason,
+  Button,
 } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { ITodo } from "../../types/types";
@@ -26,11 +27,18 @@ const TodoList: FC = () => {
 
   useEffect(() => {
     setTodos(JSON.parse(localStorage.getItem("todos") || "[]"));
-  }, []);
+  }, []); /*При перезагрузке страницы вытягиваем из хранилища тудушки с прошлой сессии */
 
   useEffect(() => {
     filterTodos();
   }, [todos, filter]);
+
+  const saveLocalTodos = () => {
+    localStorage.setItem(
+      "todos",
+      JSON.stringify(todos)
+    ); /*Запись в хранилище (БАГ: не сохраняется последний элемент) */
+  };
 
   const addTodo = (value: string) => {
     if (value) {
@@ -40,7 +48,7 @@ const TodoList: FC = () => {
         completed: false,
       };
       setTodos([...todos, newItem]);
-      localStorage.setItem("todos", JSON.stringify(todos));
+      saveLocalTodos();
       setValue("");
     } else {
       setError("Todo text can not be empty!");
@@ -70,13 +78,18 @@ const TodoList: FC = () => {
         todo.id === id ? { ...todo, completed: !todo.completed } : { ...todo }
       ),
     ]);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    saveLocalTodos();
   };
 
   const removeTodo = (id: string) => {
     setTodos([...todos.filter((todo) => todo.id !== id)]);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    saveLocalTodos();
   };
+
+  const clearCompleted = () => {
+    setTodos([...todos.filter((todo) => todo.completed === false)]);
+    saveLocalTodos();
+  }; /*Не до конца понял нужно ли было удалять выполненные или просто убрать галочки */
 
   const filterTodos = () => {
     if (!filter || filter === "All") {
@@ -89,7 +102,7 @@ const TodoList: FC = () => {
   };
 
   return (
-    <div>
+    <div className="todo_list">
       <form onSubmit={handleSubmit}>
         <TextField
           id="outlined-multiline-flexible"
@@ -123,24 +136,31 @@ const TodoList: FC = () => {
         )}
       />
       <div className="todo__filters">
-        <div
-          className={filter === "All" ? "filter__active" : "filter"}
+        <Button
+          disabled={filter === "All" ? true : false}
           onClick={() => setFilter("All")}
         >
           All
-        </div>
-        <div
-          className={filter === "Completed" ? "filter__active" : "filter"}
+        </Button>
+        <Button
+          disabled={filter === "Completed" ? true : false}
           onClick={() => setFilter("Completed")}
         >
           Completed
-        </div>
-        <div
-          className={filter === "Active" ? "filter__active" : "filter"}
+        </Button>
+        <Button
+          disabled={filter === "Active" ? true : false}
           onClick={() => setFilter("Active")}
         >
           Active
-        </div>
+        </Button>
+      </div>
+      <div className="todo__filters__additional">
+        <p>
+          {[...todos].filter((item) => item.completed === false).length} items
+          left
+        </p>
+        <Button onClick={clearCompleted}>Clear completed</Button>
       </div>
       <Snackbar
         open={notification}

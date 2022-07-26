@@ -4,5 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: larger;
+    font-size: large;
+    @media screen and (max-width: 360px){
+        font-size: medium;
+    }
 }

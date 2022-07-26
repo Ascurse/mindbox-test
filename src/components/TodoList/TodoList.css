@@ -1,3 +1,7 @@
+.todo_list {
+  width: 350px;
+}
+
 .todo__filters {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9,12 +13,20 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  cursor: pointer;
   margin-top: 5px;
+  border: 1px solid gray;
 }
 
-.filter__active {
-  color: blue;
-  text-decoration: underline;
+.todo__filters__additional {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 /*# sourceMappingURL=TodoList.css.map */

@@ -9,9 +9,11 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 360px;
+  width: 350px;
   background-color: lightblue;
   border: 1px solid gray;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 10px;
 }
 
@@ -29,7 +31,9 @@
   background-color: lightgray;
   border: 1px solid gray;
   text-decoration: line-through;
+  width: 350px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 10px;
-  width: 360px;
 }
 /*# sourceMappingURL=TodoItem.css.map */

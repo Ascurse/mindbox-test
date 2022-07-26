@@ -11,6 +11,12 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: larger;
+  font-size: large;
+}
+
+@media screen and (max-width: 360px) {
+  .app {
+    font-size: medium;
+  }
 }
 /*# sourceMappingURL=App.css.map */
