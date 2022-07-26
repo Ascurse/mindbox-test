@@ -1,0 +1,16 @@
+.todo_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: lightblue;
+    border: 1px solid gray;
+}
+
+.todo_item__completed {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: lightgray;
+    border: 1px solid gray;
+    text-decoration: line-through;
+}
